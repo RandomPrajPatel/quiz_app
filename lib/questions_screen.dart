@@ -10,9 +10,16 @@ class QuestionsScreen extends StatefulWidget {
 }
 
 class _QuestionScreenState extends State<QuestionsScreen> {
+  var currentQuestionIndex = 0;
+  void answerQuestion() {
+    setState(() {
+      currentQuestionIndex++;
+    });
+  }
+
   @override
   Widget build(context) {
-    final currentQuestion = questions[0];
+    final currentQuestion = questions[currentQuestionIndex];
     return Center(
       child: Container(
         margin: const EdgeInsets.all(50),
