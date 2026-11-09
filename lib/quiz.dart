@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:quiz_app/questions_screen.dart';
 import 'package:quiz_app/results_screen.dart';
@@ -16,22 +15,30 @@ class Quiz extends StatefulWidget {
 
 class _QuizState extends State<Quiz> {
   Widget? activeScreen;
-   List<String> selectedAnswers = [];
+  List<String> selectedAnswers = [];
 
   void chooseAnswer(String answer) {
-  selectedAnswers.add(answer);
-  if (selectedAnswers.length == questions.length) {
-    setState(() {
-      activeScreen = ResultsScreen(chooseAnswers: selectedAnswers,);
-    });
+    selectedAnswers.add(answer);
+    if (selectedAnswers.length == questions.length) {
+      setState(() {
+        activeScreen = ResultsScreen(
+          chooseAnswers: selectedAnswers,
+          onRestart: restartQuiz,
+        );
+      });
+    }
   }
-}
 
   void switchScreen() {
     setState(() {
-      activeScreen = QuestionsScreen(
-        onSelectedAnswer: chooseAnswer,
-      );
+      activeScreen = QuestionsScreen(onSelectedAnswer: chooseAnswer);
+    });
+  }
+
+  void restartQuiz() {
+    setState(() {
+      selectedAnswers = [];
+      activeScreen = QuestionsScreen(onSelectedAnswer: chooseAnswer);
     });
   }
 
